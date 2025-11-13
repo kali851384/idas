@@ -1,0 +1,31 @@
+Datenbank ID schlüssel:
+
+ADM = Admin
+ADM-00000
+
+SYM = Symptome
+SYM-0000000
+
+FAB = Fachbereich
+FAB-0000
+
+DIA = Diagnose
+DIA-0000000000
+
+ART = Ärzte
+ART-000000
+
+PAT = Patienten
+PAT-00000000
+
+MIT =  Mitarbeiter
+MIT-00000
+
+SUP = Support
+SUP-00000000
+
+TEM = Termin
+TEM-00000000
+
+VOE = Vorerkrankung
+VOE-00000
