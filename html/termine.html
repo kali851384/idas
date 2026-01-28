@@ -61,50 +61,57 @@
 
 <main>
 
-<h1>Terminübersicht</h1>
+<h1 id="TerminTitel">Terminübersicht</h1>
 
-<table>
+<table id="TerminTabelle">
 
+<thead id="TerminHead">
   <tr>
     <th>Datum</th>
     <th>Uhrzeit</th>
     <th>Arzt</th>
+    <th>Fachbereich</th>
     <th>Status</th>
     <th>Aktion</th>
   </tr>
+  </thead>
 
-  <tr>
-    <td>08.11.2025</td>
-    <td>09:30</td>
-    <td>Dr. Müller (Kardiologie)</td>
-    <td>Best&auml;tigt</td>
-    <td class="actions">
-      <button class="details">Details</button>
-      <button class="cancel">Absagen</button>
-    </td>
+<tbody id="TerminBody">
+
+<!--Termin 1 -->
+  <tr class="Terminzeilen">
+    <td class="TerminDatum">20.11.2025</td>
+    <td class="TerminZeit">09:30</td>
+    <td class="TerminArzt">Dr. Holly Daze</td>
+    <td class="TerminFachbereich">Kardiologie</td>
+    <td class="TerminStatus abgeschlossen">Abgeschlossen</td>
+    <td class="TerminAktion">  <a href="#"  class="TerminDetails">Details</a>  </td>
   </tr>
 
-  <tr>
-    <td>10.11.2025</td>
-    <td>11:00</td>
-    <td>Dr. Schmidt (Orthopädie)</td>
-    <td>Offen</td>
-    <td class="actions">
-      <button class="details">Details</button>
-      <button class="cancel">Absagen</button>
-    </td>
-  </tr>
+<!--Termin 2 -->
+    <tr class="Terminzeilen">
+      <td class="TerminDatum">10.12.2025</td>
+      <td class="TerminZeit">10:00</td>
+      <td class="TerminArzt">Dr. Justin Times</td>
+      <td class="TerminFachbereich">Allgemeinmedizin</td>
+      <td class="TerminStatus abgeschlossen">Abgeschlossen</td>
+      <td class="TerminAktion">  <a href="#" class="TerminDetails">Details</a>
+      </td>
+    </tr>
 
-  <tr>
-    <td>10.10.2025</td>
-    <td>13:00</td>
-    <td>Dr. Weber (Dermatologie)</td>
-    <td>Abgeschlossen</td>
-    <td class="actions">
-      <button class="details">Details</button>
-      <button class="cancel">Absagen</button>
-    </td>
-  </tr>
+<!--Termin 3 -->
+    <tr class="Terminzeilen">
+      <td class="TerminDatum">15.06.2026</td>
+      <td class="TerminZeit">14:00</td>
+      <td class="TerminArzt">Dr. Emma Grate</td>
+      <td class="TerminFachbereich">Orthopädie</td>
+      <td class="TerminStatus bevorstehend">Bevorstehend</td>
+      <td class="TerminAktion"> <a href="#" class="TerminDetails">Details</a>
+      </td>
+    </tr>
+
+</tbody>
+
 
 </table>
 
