@@ -294,6 +294,22 @@ CREATE TABLE `vorerkrankungen` (
   `patient_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+--
+-- Tabellenstruktur für Tabelle `kontakt_nachrichten`
+--
+CREATE TABLE `kontakt_nachrichten` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vorname` varchar(50) NOT NULL,
+  `nachname` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `telefon` varchar(30) DEFAULT NULL,
+  `betreff` varchar(100) DEFAULT NULL,
+  `nachricht` text NOT NULL,
+  `datum` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indizes der exportierten Tabellen
 --
