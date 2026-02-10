@@ -6,3 +6,4 @@ In dieser Datei sammeln wir, was wir an Fehlern gefunden haben. Bspw. falsche ID
 
 Datei: index.html
 Problem: Im letzten a-Tag wurde wahrscheinlich die ID falsch geschrieben - ID-Name ist "linktKontak"
+Status: Offen
