@@ -1,9 +1,9 @@
-<?php  
+<?php
 session_start();
-include 'db_connect.php';   // db.php
- 
- 
-// Zugriff nur für eingeloggte nutzer
+include 'db.php';
+
+
+// Zugriff nur fÃ¼r eingeloggte nutzer
 if (!isset($_SESSION['patient_id'])) {
     header("Location: anmeldung.php");
     exit;
@@ -19,12 +19,14 @@ SELECT
 FROM termin t
  JOIN arzt a ON t.arzt_id = a.arzt_id
  JOIN fachbereich f ON a.fachbereich_id = f.fachbereich_id
+ WHERE t.patient_id = ?
  ORDER BY t.datum ASC
 ";
 
-$stmt = $conn->prepare($sql);             // prepare bereitet die SQL-Anfrage vor
-$stmt->execute();                         // execute führt sie aus
-$result = $stmt->get_result();            // get_result liefert die Ergebnisse zurück
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $patient_id);
+$stmt->execute();
+$result=$stmt->get_result();
 ?>
 
 
@@ -35,11 +37,11 @@ $result = $stmt->get_result();            // get_result liefert die Ergebnisse z
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terminübersicht</title>
+  <title>TerminÃ¼bersicht</title>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 
-  <style>         
+  <style>
     table, th, td {
       border: 1px solid black;
       border-collapse: collapse;
@@ -83,27 +85,27 @@ $result = $stmt->get_result();            // get_result liefert die Ergebnisse z
 
 
 
-<main id="TerminMain">  
+<main id="TerminMain">
 
-<h1 id="TerminTitel">Terminübersicht</h1>
+<h1 id="TerminTitel">TerminÃ¼bersicht</h1>
 
   <table id="TerminTabelle">
-  
+
  <thead id="TerminHead">
 <tr>
-    <th>Datum</th>                   
+    <th>Datum</th>
     <th>Uhrzeit</th>
     <th>Arzt</th>
     <th>Fachbereich</th>
     <th>Status</th>
     <th>Aktion</th>
 </tr>
- </thead>        
- 
+ </thead>
+
    <tbody id="TerminBody">
 
 <?php if ($result->num_rows > 0): ?>
-<?php while ($row = $result->fetch_assoc()): ?>     <!-- alle Termine holen -->
+<?php while ($row = $result->fetch_assoc()): ?>
 <?php
     $datum = date("d.m.Y", strtotime($row['datum']));
     $zeit = date("H:i", strtotime($row['datum']));
@@ -112,7 +114,7 @@ $result = $stmt->get_result();            // get_result liefert die Ergebnisse z
    <tr class="Terminzeilen">
       <td class="TerminDatum"><?= $datum ?></td>
           <td class="TerminZeit"><?= $zeit ?></td>
-          <td class="TerminArzt"><?= htmlspecialchars($row['arzt_name']) ?></td>   <!-- von HTML probleme sichern -->
+          <td class="TerminArzt"><?= htmlspecialchars($row['arzt_name']) ?></td>
           <td class="TerminFachbereich"><?= htmlspecialchars($row['fachbereich']) ?></td>
           <td class="TerminStatus"><?= $status ?></td>
           <td class="TerminAktion"> <a href="termin-details.php?id=<?= $row['termin_id'] ?>" class="TerminDetails"> Details </a>
