@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktiver Symptom-Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A4D68;
+            --primary-light: #088395;
+            --accent: #05BFDB;
+            --warning: #FF6B6B;
+            --background: #F8FAFB;
+            --surface: #FFFFFF;
+            --text: #1A2B3C;
+            --text-secondary: #5A6C7D;
+            --border: #E1E8ED;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: linear-gradient(135deg, #F8FAFB 0%, #E8F4F8 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 20px rgba(10, 77, 104, 0.08);
+        }
+
+        .header h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .body-diagram-container {
+            position: sticky;
+            top: 2rem;
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(10, 77, 104, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .body-diagram-container h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .instruction {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(5, 191, 219, 0.08) 0%, rgba(8, 131, 149, 0.08) 100%);
+            border-radius: 12px;
+            border: 1px dashed var(--accent);
+        }
+
+        #body-svg {
+            width: 100%;
+            height: auto;
+            max-height: 700px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #body-svg g path {
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            fill: rgba(8, 131, 149, 0.15);
+            stroke: var(--primary);
+            stroke-width: 1.5;
+        }
+
+        #body-svg g path:hover {
+            fill: rgba(5, 191, 219, 0.4);
+            stroke: var(--accent);
+            stroke-width: 2.5;
+            filter: drop-shadow(0 4px 12px rgba(5, 191, 219, 0.3));
+        }
+
+        #body-svg g path.selected {
+            fill: var(--accent);
+            stroke: var(--primary);
+            stroke-width: 2.5;
+            filter: drop-shadow(0 4px 12px rgba(5, 191, 219, 0.5));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .symptom-panel {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 24px rgba(10, 77, 104, 0.1);
+            border: 1px solid var(--border);
+            min-height: 600px;
+        }
+
+        .symptom-panel h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .body-part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(10, 77, 104, 0.2);
+        }
+
+        .body-part-tag button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .body-part-tag button:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .symptom-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .symptom-item {
+            background: linear-gradient(135deg, rgba(248, 250, 251, 0.8) 0%, rgba(232, 244, 248, 0.8) 100%);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .symptom-item:hover {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(5, 191, 219, 0.08) 0%, rgba(8, 131, 149, 0.08) 100%);
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(5, 191, 219, 0.15);
+        }
+
+        .symptom-item.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(5, 191, 219, 0.15) 0%, rgba(8, 131, 149, 0.15) 100%);
+            box-shadow: 0 4px 20px rgba(10, 77, 104, 0.15);
+        }
+
+        .symptom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .symptom-item.selected .symptom-checkbox {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .symptom-item.selected .symptom-checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .symptom-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .symptom-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .actions {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(10, 77, 104, 0.2);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(10, 77, 104, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .selected-count {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .body-diagram-container {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .organ-group {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Interaktiver Symptom-Checker</h1>
+        <p>Klicken Sie auf einen Körperteil, um Symptome zu erfassen</p>
+    </div>
+
+    <div class="container">
+        <div class="body-diagram-container">
+            <h2>Körperteil auswählen</h2>
+            <div class="instruction">
+                👆 Klicken Sie auf einen hervorgehobenen Körperteil, um häufige Symptome anzuzeigen
+            </div>
+            <svg id="body-svg" viewBox="0 0 744.09 1052.4" xmlns="http://www.w3.org/2000/svg">
+                <g id="layer2">
+                    <!-- HEAD GROUP -->
+                    <g class="organ-group" data-organ="head">
+                        <path d="m354.25 151.58c-1.0845-5.4151-1.2894-10.83-0.16577-16.245 1.6024-4.0336 3.2049-8.0696 4.8073-9.9461 3.1496-4.4214 6.2992-7.0808 9.4488-9.7804 4.3572-2.4942 7.3756-3.2034 10.443-3.9784 3.8957-1.0495 8.0964-1.4892 12.433-1.6577 3.7574 0.16461 7.5148 0.55372 11.272 1.1604 5.4025 1.4982 8.8999 3.949 12.598 6.2992 4.4826 3.8224 7.1537 8.007 9.4488 12.267l1.9892 8.7857c0.15604 4.8073 0.24954 9.6146-1.3262 14.422"/>
+                        <path d="m392.04 143.12v-25.694c-1.6812-1.1218-3.3582-2.2601-5.4704-1.6577-2.4313-0.14522-4.8626 1.0878-7.2938 3.1496-2.3208 1.5411-4.6415 2.1637-6.9623 5.3046-0.75805-0.46156-1.5161 0.95737-2.2742 2.2031-0.12605 0.3155-1.1362 1.2941-3.0304 2.9357-1.2156-0.0821-2.4313 2.2867-3.6469 4.8073-1.3448 0.31994-1.3521 1.3086-0.94011 2.507l-1.0491 2.7976-1.4919 5.4704c-0.0336 0.82884-0.36754 1.6577 2.155 2.4865-2.4075 1.017-1.7806 2.5397-1.6577 3.9784 2.1145 1.9303 4.5751 2.4761 7.128 2.6523l21.716-1.1604c1.2727-1.2152 2.2973-2.4924 1.8234-4.1442h1.8235c-0.15204 1.3814-0.58318 2.7628 1.8234 4.1442l22.213 0.33154 1.9892-2.9838 1.4919-3.9784c0.67757-1.934 0.25939-3.8679-0.82885-5.8019l-1.3261-3.1496c0.90485-1.5983 2.2021-3.1181 0.99461-5.1388l-4.31-5.1388c0.0961-1.135-0.7465-2.0822-2.8595-2.7754l-2.7766-2.695-3.9784-1.3261-5.6361-4.31c-1.7049-1.0347-3.4932-1.6527-5.6361-0.4973l-2.155 1.9892 0.16577 25.694z"/>
+                    </g>
+                    
+                    <!-- NECK/THROAT GROUP -->
+                    <g class="organ-group" data-organ="throat">
+                        <path d="m358.23 155.22c-0.62426-1.3814-1.4456-2.7628-3.8127-4.1442-1.9718 0.31116-3.6544 1.2006-4.31 4.1442-0.16011 2.4617-0.0575 5.0548 0.66308 7.9569 2.0708 4.0626 3.6199 8.647 4.8073 13.593l2.4865 0.4973c0.84377-1.7129 1.2005-3.4259 1.1604-5.1388"/>
+                        <path d="m422.05 156.55c0.7639-1.4463 1.6159-2.8046 2.8181-3.8127l3.8127 0.82884 1.8234 3.8127-0.82884 5.4704-1.9892 5.1388c-1.0244 2.1508-2.0584 4.2821-2.6523 7.2938l-0.82884 2.8181-1.6577 0.99462-1.8234-1.1604-0.33154-5.4704"/>
+                        <path d="m358.72 176.28c9.0093 26.62 19.376 26.544 29.673 27.849 20.731 0.57755 26.571-12.421 32.656-25.197"/>
+                    </g>
+
+                    <!-- CHEST/LUNGS/HEART GROUP -->
+                    <g class="organ-group" data-organ="chest">
+                        <path d="m369.83 196.83c-0.71225 8.7239-2.1706 18.256-8.1227 32.656"/>
+                        <path d="m410.11 197.16c-0.76272 13.403 2.0604 23.873 6.1334 33.319"/>
+                        <path d="m363.36 225.34c-14.09 3.5259-28.181 8.7131-42.271 10.278-17.759 6.2816-24.021 17.635-26.855 30.501l-2.9838 20.555c-1.4206 11.244-0.16724 21.418 0.49731 31.828 0.0232 8.3936-0.22854 16.741-2.8181 24.7l-4.9731 32.159"/>
+                    </g>
+
+                    <!-- STOMACH/ABDOMEN GROUP -->
+                    <g class="organ-group" data-organ="abdomen">
+                        <path d="m352.65 373.18c10.266 6.6397 20.21 10.701 29.886 12.618 7.9177 0.92927 15.179 0.54589 21.916-0.88551 6.3364-1.9116 10.314-5.71 13.725-9.962"/>
+                    </g>
+
+                    <!-- INTESTINES GROUP -->
+                    <g class="organ-group" data-organ="intestines">
+                        <path d="m427.7 372.29-7.3054 6.6413-11.512 7.7482-9.0764 3.7634-19.26-1.9924-13.504-4.8703-11.069-3.9848-11.069-5.5344"/>
+                        <path d="m356.64 390.22-2.6565 3.3206-1.1069 3.542"/>
+                        <path d="m379.44 403.51-0.44275 5.7558 1.5496 4.8703 5.7558 2.4351 7.5268-0.66413 0.66413-3.3206v-6.4199l4.4275-2.6565 7.9696 0.22138 3.542 3.542 2.8779 4.4275"/>
+                    </g>
+
+                    <!-- LEFT ARM GROUP -->
+                    <g class="organ-group" data-organ="arm-left">
+                        <path d="m327.56 317.51 1.6577 11.604 1.9892 31.496-0.33154 9.9461-3.1496 13.593-2.6523 17.406-1.8235 11.272-7.128 20.39-4.973 20.39-1.6577 19.892 0.99461 26.026"/>
+                        <path d="m299.38 537.98-3.3154-4.31-1.3262-4.31-2.6523-4.1442-0.66307-1.8234"/>
+                        <path d="m311.15 527.21 0.4973 6.9623"/>
+                    </g>
+
+                    <!-- RIGHT ARM GROUP -->
+                    <g class="organ-group" data-organ="arm-right">
+                        <path d="m435.14 380.79c-0.15985-6.4297-1.5992-8.6965-6.1298-9.654-3.2424-0.68525-4.1474-0.5277-6.3583 1.1069-3.357 2.482-3.5402 2.4312-3.5071-0.97203 0.017-1.7514 0.86552-3.8294 2.1676-5.3087 1.8438-2.0948 2.46-2.309 4.4575-1.5495 1.5173 0.57688 2.8776 0.5818 3.938 0.0143 1.177-0.62991 1.9173-0.50886 2.707 0.44263 0.91229 1.0992 0.71382 1.3096-1.2353 1.3096-1.2772 0-2.3222 0.39848-2.3222 0.88551s1.3678 0.88551 3.0396 0.88551c2.1311 0 3.1757 0.46316 3.4948 1.5496 1.181 4.0203 1.4137 8.0907 0.67088 11.733l-0.81271 3.9848-0.11007-4.4275z"/>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <div class="symptom-panel" id="symptom-panel">
+            <div class="empty-state">
+                <div class="empty-state-icon">🏥</div>
+                <h3>Los geht's</h3>
+                <p>Wählen Sie einen Körperteil aus dem Diagramm aus, um häufige Symptome und Beschwerden anzuzeigen</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const symptomData = {
+            head: {
+                name: 'Kopf / Gehirn',
+                symptoms: [
+                    { id: 1, name: 'Kopfschmerzen', description: 'Anhaltende oder wiederkehrende Schmerzen im Kopfbereich' },
+                    { id: 2, name: 'Schwindel', description: 'Benommenheitsgefühl oder Unsicherheit' },
+                    { id: 3, name: 'Migräne', description: 'Starke pochende Schmerzen, oft einseitig' },
+                    { id: 4, name: 'Sehstörungen', description: 'Verschwommenes oder beeinträchtigtes Sehen' },
+                    { id: 5, name: 'Gedächtnisprobleme', description: 'Schwierigkeiten beim Erinnern oder Konzentrieren' },
+                    { id: 6, name: 'Nebenhöhlendruck', description: 'Druck oder Schmerzen im Bereich der Nebenhöhlen' },
+                    { id: 7, name: 'Verwirrtheit', description: 'Schwierigkeiten klar zu denken oder Orientierungslosigkeit' }
+                ]
+            },
+            throat: {
+                name: 'Hals / Nacken',
+                symptoms: [
+                    { id: 8, name: 'Halsschmerzen', description: 'Schmerzen oder Kratzen im Hals' },
+                    { id: 9, name: 'Schluckbeschwerden', description: 'Schmerzen oder Unbehagen beim Schlucken' },
+                    { id: 10, name: 'Heiserkeit', description: 'Raue oder angestrengte Stimmqualität' },
+                    { id: 11, name: 'Geschwollene Lymphknoten', description: 'Vergrößerte Lymphknoten am Hals' },
+                    { id: 12, name: 'Nackenschmerzen', description: 'Steifheit oder Schmerzen im Nackenbereich' },
+                    { id: 13, name: 'Husten', description: 'Anhaltender Husten oder Räusperzwang' }
+                ]
+            },
+            chest: {
+                name: 'Brust / Lunge / Herz',
+                symptoms: [
+                    { id: 14, name: 'Brustschmerzen', description: 'Beschwerden oder Schmerzen im Brustbereich' },
+                    { id: 15, name: 'Atemnot', description: 'Schwierigkeiten beim Atmen oder Kurzatmigkeit' },
+                    { id: 16, name: 'Anhaltender Husten', description: 'Fortlaufendes Husten, trocken oder mit Schleim' },
+                    { id: 17, name: 'Herzrasen', description: 'Unregelmäßiger oder schneller Herzschlag' },
+                    { id: 18, name: 'Keuchen', description: 'Pfeifendes Geräusch beim Atmen' },
+                    { id: 19, name: 'Engegefühl in der Brust', description: 'Druck- oder Engegefühl in der Brust' },
+                    { id: 20, name: 'Beschleunigter Herzschlag', description: 'Rasendes oder pochendes Herzgefühl' }
+                ]
+            },
+            abdomen: {
+                name: 'Bauch / Magen',
+                symptoms: [
+                    { id: 21, name: 'Bauchschmerzen', description: 'Schmerzen oder Krämpfe im Magenbereich' },
+                    { id: 22, name: 'Übelkeit', description: 'Übelkeitsgefühl im Magen' },
+                    { id: 23, name: 'Erbrechen', description: 'Übergeben oder das Gefühl sich übergeben zu müssen' },
+                    { id: 24, name: 'Blähungen', description: 'Völlegefühl oder geschwollener Bauch' },
+                    { id: 25, name: 'Appetitlosigkeit', description: 'Vermindertes Verlangen zu essen' },
+                    { id: 26, name: 'Sodbrennen', description: 'Brennendes Gefühl in Brust oder Hals' }
+                ]
+            },
+            intestines: {
+                name: 'Darm / Verdauung',
+                symptoms: [
+                    { id: 27, name: 'Durchfall', description: 'Lockerer oder wässriger Stuhlgang' },
+                    { id: 28, name: 'Verstopfung', description: 'Schwierigkeiten beim Stuhlgang' },
+                    { id: 29, name: 'Blähungen', description: 'Übermäßige Gasbildung oder Aufblähung' },
+                    { id: 30, name: 'Blut im Stuhl', description: 'Sichtbares Blut im Stuhlgang' },
+                    { id: 31, name: 'Bauchkrämpfe', description: 'Scharfe Schmerzen oder Krämpfe im Unterbauch' },
+                    { id: 32, name: 'Unregelmäßiger Stuhlgang', description: 'Veränderungen der normalen Stuhlgewohnheiten' }
+                ]
+            },
+            'arm-left': {
+                name: 'Linker Arm',
+                symptoms: [
+                    { id: 33, name: 'Armschmerzen', description: 'Schmerzen irgendwo im linken Arm' },
+                    { id: 34, name: 'Taubheitsgefühl', description: 'Gefühlsverlust im Arm' },
+                    { id: 35, name: 'Schwäche', description: 'Verminderte Kraft im Arm' },
+                    { id: 36, name: 'Kribbeln', description: 'Kribbel- oder Nadelstichgefühl' },
+                    { id: 37, name: 'Schwellung', description: 'Vergrößertes oder geschwollenes Erscheinungsbild' },
+                    { id: 38, name: 'Eingeschränkte Bewegung', description: 'Schwierigkeiten beim Bewegen des Arms' },
+                    { id: 39, name: 'Ausstrahlende Schmerzen', description: 'Schmerzen von der Schulter bis zur Hand' }
+                ]
+            },
+            'arm-right': {
+                name: 'Rechter Arm',
+                symptoms: [
+                    { id: 40, name: 'Armschmerzen', description: 'Schmerzen irgendwo im rechten Arm' },
+                    { id: 41, name: 'Taubheitsgefühl', description: 'Gefühlsverlust im Arm' },
+                    { id: 42, name: 'Schwäche', description: 'Verminderte Kraft im Arm' },
+                    { id: 43, name: 'Kribbeln', description: 'Kribbel- oder Nadelstichgefühl' },
+                    { id: 44, name: 'Schwellung', description: 'Vergrößertes oder geschwollenes Erscheinungsbild' },
+                    { id: 45, name: 'Eingeschränkte Bewegung', description: 'Schwierigkeiten beim Bewegen des Arms' },
+                    { id: 46, name: 'Gelenkschmerzen', description: 'Schmerzen in Ellenbogen, Handgelenk oder Schulter' }
+                ]
+            }
+        };
+
+        let selectedBodyPart = null;
+        let selectedSymptoms = new Set();
+
+        // Handle body part clicks
+        document.querySelectorAll('.organ-group').forEach(group => {
+            group.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const organ = this.dataset.organ;
+                
+                // Remove previous selection
+                document.querySelectorAll('.organ-group path').forEach(p => p.classList.remove('selected'));
+                
+                // Select new part
+                this.querySelectorAll('path').forEach(p => p.classList.add('selected'));
+                selectedBodyPart = organ;
+                selectedSymptoms.clear();
+                
+                // Display symptoms
+                displaySymptoms(organ);
+            });
+
+            // Hover effect for entire group
+            group.addEventListener('mouseenter', function() {
+                if (!this.querySelector('path.selected')) {
+                    this.querySelectorAll('path').forEach(p => {
+                        p.style.fill = 'rgba(5, 191, 219, 0.3)';
+                    });
+                }
+            });
+
+            group.addEventListener('mouseleave', function() {
+                if (!this.querySelector('path.selected')) {
+                    this.querySelectorAll('path').forEach(p => {
+                        p.style.fill = '';
+                    });
+                }
+            });
+        });
+
+        function displaySymptoms(organ) {
+            const panel = document.getElementById('symptom-panel');
+            const data = symptomData[organ];
+            
+            if (!data) return;
+            
+            const html = `
+                <div class="fade-in">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+                        <h2>${data.name}</h2>
+                        <span class="body-part-tag">
+                            ${data.name}
+                            <button onclick="clearSelection()">×</button>
+                        </span>
+                    </div>
+                    <div class="symptom-list">
+                        ${data.symptoms.map(symptom => `
+                            <div class="symptom-item" onclick="toggleSymptom(${symptom.id})">
+                                <div class="symptom-checkbox"></div>
+                                <div class="symptom-content">
+                                    <h3>${symptom.name}</h3>
+                                    <p>${symptom.description}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-secondary" onclick="clearSelection()">Auswahl löschen</button>
+                        <button class="btn btn-primary" onclick="submitSymptoms()" id="submit-btn" disabled>
+                            Weiter mit Auswahl
+                            <span class="selected-count" id="selected-count">0</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            panel.innerHTML = html;
+        }
+
+        function toggleSymptom(symptomId) {
+            const symptomItem = event.currentTarget;
+            
+            if (selectedSymptoms.has(symptomId)) {
+                selectedSymptoms.delete(symptomId);
+                symptomItem.classList.remove('selected');
+            } else {
+                selectedSymptoms.add(symptomId);
+                symptomItem.classList.add('selected');
+            }
+            
+            updateSelectedCount();
+        }
+
+        function updateSelectedCount() {
+            const countElement = document.getElementById('selected-count');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            if (countElement) {
+                countElement.textContent = selectedSymptoms.size;
+            }
+            
+            if (submitBtn) {
+                submitBtn.disabled = selectedSymptoms.size === 0;
+            }
+        }
+
+        function clearSelection() {
+            selectedBodyPart = null;
+            selectedSymptoms.clear();
+            document.querySelectorAll('.organ-group path').forEach(p => p.classList.remove('selected'));
+            
+            const panel = document.getElementById('symptom-panel');
+            panel.innerHTML = `
+                <div class="empty-state fade-in">
+                    <div class="empty-state-icon">🏥</div>
+                    <h3>Los geht's</h3>
+                    <p>Wählen Sie einen Körperteil aus dem Diagramm aus, um häufige Symptome und Beschwerden anzuzeigen</p>
+                </div>
+            `;
+        }
+
+        function submitSymptoms() {
+            if (selectedSymptoms.size === 0) {
+                return;
+            }
+            
+            const symptoms = Array.from(selectedSymptoms);
+            const bodyPart = symptomData[selectedBodyPart].name;
+            
+            // Get symptom names
+            const symptomNames = symptoms.map(id => {
+                for (let organ in symptomData) {
+                    const symptom = symptomData[organ].symptoms.find(s => s.id === id);
+                    if (symptom) return symptom.name;
+                }
+                return '';
+            }).filter(Boolean);
+            
+            alert(`✓ Symptome erfasst
+            
+Körperteil: ${bodyPart}
+Ausgewählte Symptome: ${symptomNames.join(', ')}
+
+In einer echten Anwendung würde dies fortfahren mit:
+• Detailliertem Symptomfragebogen
+• Schweregrad- und Dauerbewertung
+• Weitere verwandte Symptome
+• Empfohlene nächste Schritte
+• Arzttermin-Buchung
+• Medizinische Beratung (falls angebracht)`);
+        }
+    </script>
+</body>
+</html>
