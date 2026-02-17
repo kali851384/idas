@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db_config.php';
+require_once "../includes/db_config.php";
 
 
 // Zugriff nur für eingeloggte nutzer
@@ -135,4 +135,5 @@ $result=$stmt->get_result();
 
 </body>
 </html>
+
 
