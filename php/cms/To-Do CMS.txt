@@ -1,0 +1,13 @@
+CMS für diese Seiten:
+
+Diese Seiten sind Funktionen und funktionieren mit include():
+delete.php
+create.php
+edit.php
+
+kontakt.php
+Dashboard.php
+konto_manager.php
+symptome_verwaltung.php
+aerzte_verwaltung.php (inkl. Fachbereiche)
+Funktionen.php (enthält die o. g. Seiten)
