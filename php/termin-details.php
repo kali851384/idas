@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db_config.php';
+require_once "../includes/db_config.php";
 
 if (!isset($_SESSION['patient_id'])) {
     header("Location: anmeldung.php");
@@ -181,5 +181,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 </html>
+
 
 
