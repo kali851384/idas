@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin_account` (
   `admin_id` int(11) NOT NULL,
   `email` varchar(40) NOT NULL,
-  `passwort` varchar(16) NOT NULL
+  `passwort` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -162,10 +162,10 @@ CREATE TABLE `patient` (
   `wohnort` varchar(50) DEFAULT NULL,
   `plz` varchar(10) DEFAULT NULL,
   `adresse` varchar(70) DEFAULT NULL,
-  `email` varchar(70) DEFAULT NULL,
+  `email` varchar(70) NOT NULL,
   `telefon` varchar(20) DEFAULT NULL,
   `geschlecht` varchar(10) DEFAULT NULL,
-  `passwort` varchar(20) DEFAULT NULL
+  `passwort` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
