@@ -1,13 +1,14 @@
 CMS für diese Seiten:
 
 Diese Seiten sind Funktionen und funktionieren mit include():
-delete.php
-create.php
-edit.php
+delete.php - Pascal
+create.php - Pascal
+edit.php - Justin
 
-kontakt.php
-Dashboard.php
-konto_manager.php
-symptome_verwaltung.php
-aerzte_verwaltung.php (inkl. Fachbereiche)
-Funktionen.php (enthält die o. g. Seiten)
+kontakt.php - Justin
+Dashboard.php - Pascal
+konto_manager.php - Haithem
+symptome_verwaltung.php - Haithem
+aerzte_verwaltung.php (inkl. Fachbereiche) - Haithem
+Funktionen.php (enthält die o. g. Seiten) - Haithem
+
