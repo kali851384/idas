@@ -183,6 +183,7 @@ INSERT INTO `patient` (`patient_id`, `vorname`, `nachname`, `geburtsdatum`, `woh
 
 CREATE TABLE `support` (
   `ticket_id` int(11) NOT NULL,
+  `kontakt_id` int(11) DEFAULT NULL,
   `mitarbeiter_id` int(11) DEFAULT NULL,
   `patient_id` int(11) DEFAULT NULL,
   `problembeschreibung` text NOT NULL
@@ -369,7 +370,8 @@ ALTER TABLE `patient`
 ALTER TABLE `support`
   ADD PRIMARY KEY (`ticket_id`),
   ADD KEY `mitarbeiter_id` (`mitarbeiter_id`),
-  ADD KEY `patient_id` (`patient_id`);
+  ADD KEY `patient_id` (`patient_id`),
+  ADD KEY `kontakt_id` (`kontakt_id`);
 
 --
 -- Indizes für die Tabelle `symptomdet`
@@ -498,7 +500,8 @@ ALTER TABLE `diagnosedet`
 --
 ALTER TABLE `support`
   ADD CONSTRAINT `support_ibfk_1` FOREIGN KEY (`mitarbeiter_id`) REFERENCES `mitarbeiter` (`mitarbeiter_id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `support_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `support_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `support_ibfk_3` FOREIGN KEY (`kontakt_id`) REFERENCES `kontakt_nachrichten` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `symptomdet`
