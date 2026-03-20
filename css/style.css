@@ -599,6 +599,29 @@ tr:hover {
   background: #F8F9FA;
 }
 
+.termin-btn-wrapper {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.termin-btn {
+  display: inline-block;
+  background: #2F9E44;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+.termin-btn:hover {
+  background: #237A35;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
 /* Termindetails  */
 #TerminDetails {
   max-width: 850px;
