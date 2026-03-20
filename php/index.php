@@ -1,6 +1,6 @@
  <?php
 session_start();
-include 'db_connect.php';
+require_once "../includes/db_config.php";
 
 // wenn eingelogt
 $vorname = "";
