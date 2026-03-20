@@ -169,7 +169,7 @@ if ($conn) {
 </footer>
 
 
- <script src="script.js"></script>   <!-- JS teil um profil menü zu passen -->
+<script src="JS/script.js" defer></script>  <!-- JS teil um profil menü zu passen -->
 
 </body>
 </html>
