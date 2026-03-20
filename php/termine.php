@@ -133,6 +133,12 @@ $result=$stmt->get_result();
 
 </main>
 
+    
+<footer id="footer">
+   2026 IDAS Gesundheitsportal . Hannover<br>
+  Alle Rechte vorbehalten
+</footer>
+
 </body>
 </html>
 
