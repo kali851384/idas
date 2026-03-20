@@ -7,13 +7,13 @@ if (!isset($_SESSION['patient_id'])) {
     exit;
 }
 
-$patient_id = $_SESSION['patient_id'];
+$patient_id = $_SESSION['patient_id'];       // damti die patient-id gespeichert sind nach login
 
-if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    die("Ungültige Termin-ID.");
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {    // stellt sicher das der id im DB ist und das es zahl ist ansonstaen wird die seite gestopt
+    die("Ung�ltige Termin-ID.");
 }
 
-$termin_id = intval($_GET['id']);
+$termin_id = intval($_GET['id']);   // die ID in eine zahl umwandeln
 
 
 $sql = "
@@ -38,7 +38,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("ii", $termin_id, $patient_id);
 $stmt->execute();
 $result = $stmt->get_result();
-$termin = $result->fetch_assoc();
+$termin = $result->fetch_assoc();   //Termin als Array holen
 
 if (!$termin) {
     die("Termin nicht gefunden oder kein Zugriff.");
@@ -50,7 +50,7 @@ $status = (strtotime($termin['datum']) < time())
     : "Bevorstehend";
 
 // Termin absagen
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {    //Server=alle infos �ber besucher und seite , POST ist f�r schiken und l�schen
     $del = $conn->prepare(
         "DELETE FROM termin WHERE termin_id = ? AND patient_id = ?"
     );
@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <tr class="TerminDetailsZeile">
         <th class="TerminDetailsLabel">Grund / Beschreibung</th>
-        <td class="TerminDetailsWert"><?= nl2br(htmlspecialchars($termin['beschreibung'])) ?>
+        <td class="TerminDetailsWert"><?= nl2br(htmlspecialchars($termin['beschreibung'])) ?>  <!--Macht aus Zeilenumbr�chen <br> Tags  -->
         </td>
       </tr>
 
@@ -157,10 +157,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <div id="TerminDetailsAktion">
     <a href="termine.php" class="TerminDetailsZuruck">
-      Zurück zur Übersicht
+      Zuruck zur Ubersicht
     </a>
 
-    <form method="POST" style="display:inline;">
+    <form method="POST" style="display:inline;">   <!-- Button bleibt nebem Link (nicht darunter) -->
       <button type="submit"
               class="TerminDetailsLuschen"
               onclick="return confirm('Termin wirklich absagen?');">
@@ -172,13 +172,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </main>
 
 
-<footer id="footer">
+<!-- fu� bereich -->
+ <footer id="footer">
    2026 IDAS Gesundheitsportal . Hannover<br>
   Alle Rechte vorbehalten
 </footer>
 
 </body>
 </html>
-
 
 
