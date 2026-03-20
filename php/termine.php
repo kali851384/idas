@@ -96,6 +96,12 @@ $result = $stmt->get_result();
 <?php endif; ?>
 </table>
 
+  <div class="termin-btn-wrapper">
+  <a href="symptome.php" class="termin-btn">
+    + Neuen Termin buchen
+  </a>
+</div>
+
 <br>
 <a href="termin_neu.php" class="btn">+ Neuen Termin buchen</a>
 
