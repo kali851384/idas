@@ -4,6 +4,14 @@ In dieser Datei sammeln wir, was wir an Fehlern gefunden haben. Bspw. falsche ID
 
 #########################################################################################################################################
 
+ala: Bitte in alle seiten eindeutige fuß berecich benutzen:
+ <footer id="footer">
+   2026 IDAS Gesundheitsportal . Hannover<br>
+  Alle Rechte vorbehalten
+</footer>
+
+
+
 Datei: index.html
 Problem: Im letzten a-Tag wurde wahrscheinlich die ID falsch geschrieben - ID-Name ist "linktKontak"
 Status: Offen
