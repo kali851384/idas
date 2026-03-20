@@ -55,30 +55,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 </head>
 <body>
 
-<div id="header">
-    <a href="index.php"><img id="siteLogo" src="images/siteLogo.png" width="72px" height="72px"></a>
-    <h1><b>IDAS</b></h1>
-    <h4 id="logoBanner">Intelligent Doctor Appointment System</h4>
-
-    <div id="navProfil">
-        <img id="profilImg" src="profilImg.png" onclick="dropDownButton()">
-        <div id="profilMenuSignedIn" class="dropdownDiv">
-            <a href="konto.php" class="dropdownSignedIn">Konto anzeigen</a>
-            <a href="logout.php" class="dropdownSignedIn">Abmelden</a>
-        </div>
-    </div>
-
-    <nav id="naviBereich">
-        <div id="navLinks">
-            <a href="index.php" class="navLink">Start</a>
-            <a href="symptome.php" class="navLink">Arzt finden</a>
-            <a href="patientenakte.php" class="navLink">Patientenakte</a>
-            <a href="termine.php" class="navLink">Termine</a>
-            <a href="konto.php" class="navLink">Konto</a>
-            <a href="kontakt.php" class="navLink">Kontakt</a>
-        </div>
-    </nav>
-</div>
+<?php include 'header.php'; ?>   <!-- kopf bereich rufen -->
 
 <main class="kontakt-container">
 
