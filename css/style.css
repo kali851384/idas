@@ -1,0 +1,176 @@
+/* Reset + Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #F1F8F4;
+  color: #212529;
+}
+
+/* HEADER */
+#header {
+  background: #FFFFFF;
+  padding: 15px 30px;
+  border-bottom: 1px solid #DDE5E0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#header h1 {
+  color: #2F9E44;
+}
+
+#logoBanner {
+  color: #6c757d;
+}
+
+/* LOGO */
+#siteLogo {
+  border-radius: 10px;
+}
+
+/* PROFIL */
+#navProfil {
+  margin-left: auto;
+  position: relative;
+}
+
+#profilImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #2F9E44;
+}
+
+/* DROPDOWN */
+.dropdownDiv {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 55px;
+  background: #FFFFFF;
+  border: 1px solid #DDE5E0;
+  border-radius: 8px;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.dropdownDiv a,
+.dropdownDiv button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: #212529;
+}
+
+.dropdownDiv a:hover,
+.dropdownDiv button:hover {
+  background: #74C69D;
+  color: #ffffff;
+}
+
+/* NAVIGATION */
+#naviBereich {
+  background: #2F9E44;
+  padding: 10px 30px;
+}
+
+#navLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navLink:hover {
+  color: #d3f9d8;
+}
+
+/* MAIN */
+main {
+  padding: 40px;
+}
+
+/* FORMULAR */
+#kontaktForm {
+  background: #FFFFFF;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+#kontaktForm label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#kontaktForm input,
+#kontaktForm textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #DDE5E0;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+#kontaktForm input:focus,
+#kontaktForm textarea:focus {
+  outline: none;
+  border-color: #2F9E44;
+  box-shadow: 0 0 0 2px rgba(47, 158, 68, 0.2);
+}
+
+/* BUTTON */
+button {
+  margin-top: 20px;
+  background: #2F9E44;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:hover {
+  background: #237A35;
+}
+
+/* LINKS (allgemein) */
+a {
+  color: #2F9E44;
+}
+
+a:hover {
+  color: #237A35;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  #navLinks {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  main {
+    padding: 20px;
+  }
+}
