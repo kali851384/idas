@@ -178,6 +178,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {    //Server=alle infos �ber besuc
   Alle Rechte vorbehalten
 </footer>
 
+
+<script src="JS/script.js" defer></script>  <!-- JS teil um profil menü zu passen -->
+
+
 </body>
 </html>
 
