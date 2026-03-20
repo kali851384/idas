@@ -38,7 +38,7 @@ if (session_status() === PHP_SESSION_NONE) {    // sichern das session funktioni
 <nav id="naviBereich">
     <div id="navLinks">
         <a href="index.php" class="navLink"> Start</a>
-        <a href="symptome.php" class="navLink">Symptome / Arzt finden</a>
+        <a href="symptome.php" class="navLink"> Arzt finden</a>
         <a href="termine.php" class="navLink"> Termine</a>
         <a href="konto.php" class="navLink"> Konto</a>
         <a href="kontakt.php" class="navLink"> Kontakt</a>
