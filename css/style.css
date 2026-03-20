@@ -6,171 +6,833 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   background: #F1F8F4;
   color: #212529;
+  line-height: 1.6;
 }
 
-/* HEADER */
+/* HEADER - Logo links, Profil rechts */
 #header {
   background: #FFFFFF;
-  padding: 15px 30px;
+  padding: 15px 40px;
   border-bottom: 1px solid #DDE5E0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+/* Linke Seite: Logo  */
+.header-left {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-#header h1 {
+.header-left h1 {
   color: #2F9E44;
+  font-size: 1.8rem;
+  margin: 0;
 }
 
-#logoBanner {
+.header-left h4 {
   color: #6c757d;
+  font-weight: normal;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Rechte Seite: Profil */
+.header-right {
+  position: relative;
 }
 
 /* LOGO */
 #siteLogo {
-  border-radius: 10px;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+#siteLogo:hover {
+  transform: scale(1.02);
 }
 
 /* PROFIL */
 #navProfil {
-  margin-left: auto;
   position: relative;
 }
 
 #profilImg {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
   border: 2px solid #2F9E44;
+  background: #F1F8F4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  transition: all 0.2s ease;
 }
 
-/* DROPDOWN */
-.dropdownDiv {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 55px;
-  background: #FFFFFF;
-  border: 1px solid #DDE5E0;
-  border-radius: 8px;
-  min-width: 180px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  overflow: hidden;
+#profilImg:hover {
+  background: #e9ecef;
+  transform: scale(1.05);
 }
 
-.dropdownDiv a,
-.dropdownDiv button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  border: none;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-  color: #212529;
+/* DROPDOWN MENU  */
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background: #FFFFFF;
+    border: 1px solid #DDE5E0;
+    border-radius: 12px;
+    min-width: 200px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    overflow: hidden;
+    z-index: 1000;
 }
 
-.dropdownDiv a:hover,
-.dropdownDiv button:hover {
-  background: #74C69D;
-  color: #ffffff;
+.dropdown.show {
+    display: block;
+    animation: fadeIn 0.2s ease;
 }
 
-/* NAVIGATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown a,
+.dropdown button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 18px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    color: #212529;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown a:last-child,
+.dropdown button:last-child {
+    border-bottom: none;
+}
+
+.dropdown a:hover,
+.dropdown button:hover {
+    background: #2F9E44;
+    color: #ffffff;
+}
+
+.dropdown a:hover {
+    padding-left: 22px;
+}
+
+/* NAVIGATION  */
 #naviBereich {
   background: #2F9E44;
-  padding: 10px 30px;
+  padding: 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 #navLinks {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  gap: 40px;
+  padding: 14px 20px;
+  flex-wrap: wrap;
 }
 
 .navLink {
   color: white;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  border-radius: 8px;
 }
 
 .navLink:hover {
-  color: #d3f9d8;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  transform: translateY(-2px);
 }
 
-/* MAIN */
+/* MAIN Bereich */
 main {
-  padding: 40px;
+  padding: 40px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* FORMULAR */
+/* INDEX Seite */
+.welcome-section {
+  margin-bottom: 50px;
+}
+
+#begr��ung {
+  background: linear-gradient(135deg, #2F9E44 0%, #1e6b2e 100%);
+  color: white;
+  padding: 50px 60px;
+  border-radius: 24px;
+  margin-bottom: 40px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+#begr��ung h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+#begr��ung p {
+  font-size: 1.3rem;
+  opacity: 0.95;
+}
+
+/* Sticky Navigation - bleibt oben beim Scrollen */
+#naviBereich {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.welcome-box {
+  background: #F1F8F4;             
+  padding: 35px 40px;
+  border-radius: 18px;
+  border-left: 6px solid #2F9E44;   
+  max-width: 1000px;
+  margin: 0 auto 40px auto;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.welcome-box h1 {
+  color: #2F9E44;                  
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+.welcome-box p {
+  color: #495057;                 
+  font-size: 1.1rem;
+}
+
+/* �ber uns Bereich */
+#ueber-uns {
+  margin-bottom: 50px;
+}
+
+.ueber-uns-inhalt {
+  max-width: 950px;
+  margin: 0 auto 35px auto;
+  text-align: left;
+}
+
+.ueber-uns-label {
+  display: inline-block;
+  color: #2F9E44;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.ueber-uns-inhalt h2 {
+  font-size: 2.8rem;
+  line-height: 1.2;
+  color: #212529;
+  margin-bottom: 18px;
+}
+
+.ueber-uns-inhalt h2 span {
+  color: #2F9E44;
+  font-style: italic;
+}
+
+.ueber-uns-leitsatz {
+  font-size: 1.2rem;
+  color: #495057;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.ueber-uns-inhalt p {
+  color: #495057;
+  font-size: 1.08rem;
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+.vorteil-box p {
+  margin-top: 10px;
+  color: #495057;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .ueber-uns-inhalt {
+    text-align: left;
+  }
+
+  .ueber-uns-inhalt h2 {
+    font-size: 2rem;
+  }
+
+  .ueber-uns-leitsatz,
+  .ueber-uns-inhalt p {
+    font-size: 1rem;
+  }
+}
+
+/* Vorteile Container */
+.vorteile-container {
+  max-width: 900px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;   
+  gap: 18px;
+}
+
+.vorteil-box {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  background: #ffffff;
+  padding: 18px 22px;
+  border-radius: 16px;
+
+  border: 1px solid #E9ECEF;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.vorteil-box:hover {
+  transform: translateY(-3px);
+  border-color: #2F9E44;
+}
+
+/* Icon */
+.vorteil-icon {
+  font-size: 2rem;
+  min-width: 40px;
+}
+
+/* Titel */
+.vorteil-box strong {
+  display: block;
+  color: #2F9E44;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+/* Text */
+.vorteil-box p {
+  margin: 0;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+/* Hauptbereiche Buttons - Symptome & Termine */
+#hauptbereiche {
+  margin-bottom: 50px;
+}
+
+.hauptbereiche-container {
+  display: flex;
+  gap: 35px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hauptbereich-karte {
+  flex: 1;
+  min-width: 280px;
+  background: white;
+  padding: 45px 30px;
+  border-radius: 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid #E9ECEF;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.hauptbereich-karte:hover {
+  transform: translateY(-8px);
+  border-color: #2F9E44;
+  box-shadow: 0 20px 35px rgba(47, 158, 68, 0.2);
+}
+
+.hauptbereich-icon {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.hauptbereich-karte h3 {
+  color: #2F9E44;
+  margin-bottom: 12px;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.hauptbereich-karte p {
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+/* Stats Bereich */
+#stats {
+  background: transparent;   
+  padding: 20px 0;
+  margin-bottom: 40px;
+  box-shadow: none;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+
+.stat-box {
+  text-align: center;
+  min-width: 120px;
+}
+
+.stat-zahl {
+  font-size: 2rem;          
+  font-weight: bold;
+  color: #2F9E44;           
+  margin-bottom: 5px;
+}
+
+.stat-text {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Start Aufruf */
+#start-aufruf {
+  background: linear-gradient(135deg, #2F9E44 0%, #1e6b2e 100%);
+  padding: 55px;
+  border-radius: 24px;
+  text-align: center;
+  color: white;
+}
+
+#start-aufruf h2 {
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+}
+
+.start-buttons {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.start-login,
+.start-register {
+  display: inline-block;
+  padding: 14px 38px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.start-login {
+  background: white;
+  color: #2F9E44;
+}
+
+.start-login:hover {
+  background: #F1F8F4;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.start-register {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.start-register:hover {
+  background: white;
+  color: #2F9E44;
+  transform: translateY(-3px);
+}
+
+/* Kontakt FORMULAR */
+.kontakt-container {
+  text-align: center;
+}
+
+.kontakt-container h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.kontakt-info {
+  color: #495057;
+  margin-bottom: 35px;
+  font-size: 1.1rem;
+}
+
 #kontaktForm {
   background: #FFFFFF;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 600px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 40px;
+  border-radius: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  text-align: left;
 }
 
 #kontaktForm label {
   display: block;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2F9E44;
 }
 
 #kontaktForm input,
 #kontaktForm textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #DDE5E0;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 12px 15px;
+  border: 2px solid #E9ECEF;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.2s ease;
 }
 
 #kontaktForm input:focus,
 #kontaktForm textarea:focus {
   outline: none;
   border-color: #2F9E44;
-  box-shadow: 0 0 0 2px rgba(47, 158, 68, 0.2);
+  box-shadow: 0 0 0 3px rgba(47, 158, 68, 0.1);
 }
 
-/* BUTTON */
-button {
+
+.form-message {
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Tabellen Termine, Termindetails */
+table {
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 25px;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #E9ECEF;
+}
+
+th {
+  background: #2F9E44;
+  color: white;
+  font-weight: 600;
+}
+
+tr:hover {
+  background: #F8F9FA;
+}
+
+/* Termindetails  */
+#TerminDetails {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+#TerminDetailsTitel {
+  color: #2F9E44;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+#TerminDetailsTabelle {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 35px;
+}
+
+.TerminDetailsLabel {
+  background: #F8F9FA;
+  color: #2F9E44;
+  font-weight: 600;
+  width: 180px;
+  border-right: 2px solid #E9ECEF;
+}
+
+.TerminDetailsWert {
+  background: white;
+}
+
+.TerminDetailsWert.abgeschlossen {
+  color: #6c757d;
+}
+
+.TerminDetailsWert.bevorstehend {
+  color: #2F9E44;
+  font-weight: bold;
+}
+
+#TerminDetailsAktion {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.TerminDetailsZuruck {
+  display: inline-block;
+  padding: 12px 28px;
+  background: #6c757d;
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.TerminDetailsZuruck:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.TerminDetailsLuschen {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.TerminDetailsLuschen:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Allgemeine Buttons */
+button, .btn {
   margin-top: 20px;
   background: #2F9E44;
   color: white;
   border: none;
-  padding: 12px 18px;
-  border-radius: 8px;
+  padding: 12px 28px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
 }
 
-button:hover {
+button:hover, .btn:hover {
   background: #237A35;
+  transform: translateY(-2px);
 }
 
-/* LINKS (allgemein) */
+/* Links allgemein */
 a {
   color: #2F9E44;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 a:hover {
   color: #237A35;
 }
 
+/* Footer */
+#footer {
+  background: #212529;
+  color: #ADB5BD;
+  text-align: center;
+  padding: 35px;
+  margin-top: 50px;
+  font-size: 0.9rem;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  #navLinks {
+  #header {
+    padding: 15px 20px;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+  }
+
+  .header-left {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #navLinks {
+    gap: 15px;
+    padding: 12px 15px;
+  }
+
+  .navLink {
+    font-size: 0.9rem;
+    padding: 6px 12px;
   }
 
   main {
     padding: 20px;
+  }
+
+  #begr�ssung {
+    padding: 35px 25px;
+  }
+
+  #begr�ssung h1 {
+    font-size: 2rem;
+  }
+
+  #begr�ssung p {
+    font-size: 1.1rem;
+  }
+
+  #�ber-uns {
+    padding: 30px 20px;
+  }
+
+  #�ber-uns h2 {
+    font-size: 1.8rem;
+  }
+
+  .vorteile-container,
+  .hauptbereiche-container,
+  .stats-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .vorteil-box {
+    min-width: auto;
+  }
+
+  th, td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .TerminDetailsLabel {
+    width: 110px;
+  }
+
+  #TerminDetailsAktion {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .TerminDetailsZuruck,
+  .TerminDetailsLuschen {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-left h1 {
+    font-size: 1.4rem;
+  }
+
+  .header-left h4 {
+    font-size: 0.8rem;
+  }
+
+  #begr�ssung h1 {
+    font-size: 1.6rem;
+  }
+
+  #begr�ssung p {
+    font-size: 1rem;
+  }
+
+  .hauptbereich-karte h3 {
+    font-size: 1.3rem;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+
+  th, td {
+    padding: 8px;
   }
 }
