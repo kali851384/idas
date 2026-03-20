@@ -1,6 +1,6 @@
  <?php
 session_start();
-require_once "../includes/db_config.php"; 
+include 'db_connect.php';
 
 // wenn eingelogt
 $vorname = "";
@@ -43,50 +43,66 @@ if ($conn) {
 <main>
 
   <!-- begrüßung-Bereich (diese teil wird gezeigt für die eingelogte patiente)-->
-  <section id="begrüßung">
-    <?php if (isset($_SESSION['patient_id'])): ?>
-      <h1>Hallo <?= htmlspecialchars($vorname) ?>!</h1>
-      <p>Deine Gesundheit liegt uns am Herzen - lass uns loslegen!</p>
-    <?php else: ?>  <!-- und diese teil wird gezeigt für die nicht eingelogte patiente-->
-      <h1>Willkommen bei IDAS</h1>
-      <p>Schnell & einfach zum richtigen Arzt.</p>
-    <?php endif; ?>
-  </section>
+<section id="begrüßung">
+  <div class="welcome-box">
+    <h1>
+      <?php if (isset($_SESSION['patient_id'])): ?>
+        Hallo <?= htmlspecialchars($vorname) ?>, schön dass Sie da sind!
+      <?php else: ?>
+        Willkommen bei IDAS
+      <?php endif; ?>
+    </h1>
 
+    <p>
+      <?php if (isset($_SESSION['patient_id'])): ?>
+        Deine Gesundheit liegt uns am Herzen – lass uns loslegen!
+      <?php else: ?>
+        Schnell & einfach zum richtigen Arzt.
+      <?php endif; ?>
+    </p>
+  </div>
+</section>
   
   <!-- über uns-Bereich -->
-  <section id="über-uns">
-    <h2>über IDAS</h2>
-    <h3>Wir machen <em>Medizin menschlich.</em></h3>
-    <p>
-      IDAS ist ein modernes Gesundheitsportal aus Hannover, das Patienten und Fachärzte auf einer Plattform zusammenbringt. Unser Ziel ist es, den Zugang zur medizinischen Versorgung so einfach und angenehm wie möglich zu gestalten.
+<section id="ueber-uns">
+  <div class="ueber-uns-inhalt">
+    <span class="ueber-uns-label">Über IDAS</span>
+
+    <h2>Wir machen <span>Medizin menschlich.</span></h2>
+
+    <p class="ueber-uns-leitsatz">
+      IDAS ist ein modernes Gesundheitsportal aus Hannover, das Patienten und Fachärzte auf einer Plattform zusammenbringt.
     </p>
+
     <p>
-      Von der Terminbuchung bis zur Diagnoseunterstützung - wir begleiten Sie bei jedem Schritt Ihrer Gesundheitsreise.
+      Unser Ziel ist es, den Zugang zur medizinischen Versorgung so einfach und angenehm wie möglich zu gestalten.
     </p>
 
-
-   <!-- Vorteile-Bereich -->
-<div class="vorteile-container">
-  <div class="vorteil-box">
-    <span class="vorteil-icon">📅</span>
-    <strong>Online-Termine</strong><br>
-    Termine buchen – wann und wo Sie möchten.
+    <p>
+      Von der Terminbuchung bis zur Diagnoseunterstützung begleiten wir Sie bei jedem Schritt Ihrer Gesundheitsreise.
+    </p>
   </div>
 
-  <div class="vorteil-box">
-    <span class="vorteil-icon">🔒</span>
-    <strong>Datenschutz</strong><br>
-    Ihre Daten sind bei uns sicher.
-  </div>
+  <div class="vorteile-container">
+    <div class="vorteil-box">
+      <span class="vorteil-icon">📆</span>
+      <strong>Online-Termine</strong>
+      <p>Termine buchen – wann und wo Sie möchten.</p>
+    </div>
 
-  <div class="vorteil-box">
-    <span class="vorteil-icon">✉️</span>
-    <strong>Direkter Kontakt</strong><br>
-    Schreiben Sie uns jederzeit über unser Kontaktformular.
+    <div class="vorteil-box">
+      <span class="vorteil-icon">🔒</span>
+      <strong>Datenschutz</strong>
+      <p>Ihre Daten sind bei uns sicher.</p>
+    </div>
+
+    <div class="vorteil-box">
+      <span class="vorteil-icon">📩</span>
+      <strong>Direkter Kontakt</strong>
+      <p>Schreiben Sie uns jederzeit über unser Kontaktformular.</p>
+    </div>
   </div>
-</div>
-  </section>
+</section>
 
   <!-- hauptberech (Zwei große Buttons zu Termine und Symptome) -->
 <section id="hauptbereiche">
@@ -98,7 +114,7 @@ if ($conn) {
     </a>
 
     <a href="termine.php" class="hauptbereich-karte">
-      <span class="hauptbereich-icon">📆</span>
+      <span class="hauptbereich-icon">📅</span>
       <h3><?php echo isset($_SESSION['patient_id']) ? 'Meine Termine' : 'Termin buchen'; ?></h3>
       <p>Termine verwalten</p>
     </a>
@@ -153,25 +169,7 @@ if ($conn) {
 </footer>
 
 
-
-<!-- JS teil um profil menü zu passen -->
- <script>
-const profilImg = document.getElementById("profilImg");
-const menu = document.getElementById("profilMenu");
-
-// wenn man den prfilbild klickt
-profilImg.addEventListener("click", function(e) {
-  e.stopPropagation(); 
-  menu.classList.toggle("show");
-});
-
-// wenn man außerhalb der Menü klickt
-document.addEventListener("click", function(e) {
-  if (!menu.contains(e.target)) {
-    menu.classList.remove("show");  // menü schließen
-  }
-});
-</script>
+ <script src="script.js"></script>   <!-- JS teil um profil menü zu passen -->
 
 </body>
 </html>
