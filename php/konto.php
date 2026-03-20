@@ -83,8 +83,10 @@
         </section>
       </div>
     </main>
-
-    <footer></footer>
+ <footer id="footer">
+   2026 IDAS Gesundheitsportal . Hannover<br>
+  Alle Rechte vorbehalten
+</footer>
   </body>
 </html>
 
