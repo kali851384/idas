@@ -2,8 +2,7 @@
 session_start();
 require_once "../includes/db_config.php";
 
-
-// Zugriff nur für eingeloggte nutzer
+// Zugriff nur f�r eingeloggte Nutzer
 if (!isset($_SESSION['patient_id'])) {
     header("Location: anmeldung.php");
     exit;
@@ -11,33 +10,35 @@ if (!isset($_SESSION['patient_id'])) {
 
 $patient_id = $_SESSION['patient_id'];
 
+// Termine aus DB laden
 $sql = "
 SELECT
-    t.termin_id, t.datum,
+    t.termin_id,
+    t.datum,
+    p.vorname,
+    p.nachname,
     a.name AS arzt_name,
     f.name AS fachbereich
 FROM termin t
- JOIN arzt a ON t.arzt_id = a.arzt_id
- JOIN fachbereich f ON a.fachbereich_id = f.fachbereich_id
- WHERE t.patient_id = ?
- ORDER BY t.datum ASC
+JOIN arzt a ON t.arzt_id = a.arzt_id
+JOIN fachbereich f ON a.fachbereich_id = f.fachbereich_id
+JOIN patient p ON t.patient_id = p.patient_id
+ORDER BY t.datum ASC
 ";
+
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $patient_id);
 $stmt->execute();
-$result=$stmt->get_result();
+$result = $stmt->get_result();
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terminübersicht</title>
+  <title>Termin�bersicht</title>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 
@@ -55,13 +56,11 @@ $result=$stmt->get_result();
 
 <?php include 'header.php'; ?>   <!-- kopf bereich rufen -->
 
-<main id="TerminMain">
+<main>
 
-<h1 id="TerminTitel">Terminübersicht</h1>
+<h1>Termin�bersicht</h1>
 
-  <table id="TerminTabelle">
-
- <thead id="TerminHead">
+<table>
 <tr>
     <th>Datum</th>
     <th>Uhrzeit</th>
@@ -70,9 +69,6 @@ $result=$stmt->get_result();
     <th>Status</th>
     <th>Aktion</th>
 </tr>
- </thead>
-
-   <tbody id="TerminBody">
 
 <?php if ($result->num_rows > 0): ?>
 <?php while ($row = $result->fetch_assoc()): ?>
@@ -81,35 +77,35 @@ $result=$stmt->get_result();
     $zeit = date("H:i", strtotime($row['datum']));
     $status = (strtotime($row['datum']) < time()) ? "Abgeschlossen" : "Bevorstehend";
 ?>
-   <tr class="Terminzeilen">
-      <td class="TerminDatum"><?= $datum ?></td>
-          <td class="TerminZeit"><?= $zeit ?></td>
-          <td class="TerminArzt"><?= htmlspecialchars($row['arzt_name']) ?></td>
-          <td class="TerminFachbereich"><?= htmlspecialchars($row['fachbereich']) ?></td>
-          <td class="TerminStatus"><?= $status ?></td>
-          <td class="TerminAktion"> <a href="termin-details.php?id=<?= $row['termin_id'] ?>" class="TerminDetails"> Details </a>
-          </td>
-   </tr>
-      <?php endwhile; ?>
-    <?php else: ?>
-      <tr class="TerminzeilenLeer">
-        <td colspan="6">Keine Termine vorhanden.</td>
-      </tr>
-    <?php endif; ?>
+<tr>
+    <td><?= $datum ?></td>
+    <td><?= $zeit ?></td>
+    <td><?= htmlspecialchars($row['arzt_name']) ?></td>
+    <td><?= htmlspecialchars($row['fachbereich']) ?></td>
+    <td><?= $status ?></td>
+    <td>
+       <a href="termin-details.php?id=<?= $row['termin_id'] ?>">Details</a>
 
-    </tbody>
+    </td>
+</tr>
+<?php endwhile; ?>
+<?php else: ?>
+<tr>
+    <td colspan="6">Keine Termine vorhanden.</td>
+</tr>
+<?php endif; ?>
+</table>
 
-  </table>
+<br>
+<a href="termin_neu.php" class="btn">+ Neuen Termin buchen</a>
 
 </main>
 
-    
 <footer id="footer">
    2026 IDAS Gesundheitsportal . Hannover<br>
   Alle Rechte vorbehalten
 </footer>
 
+
 </body>
 </html>
-
-
