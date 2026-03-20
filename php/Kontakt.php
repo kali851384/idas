@@ -13,7 +13,7 @@ $vorname=$nachname=$email=$telefon=$betreff=$nachricht="";
 
 // datens?tze aus formular lesen
 if($_SERVER["REQUEST_METHOD"]=="POST") {
-    $vorname=trim($_POST['vorname']?? '');          // wenn der benutzer ala schreibt dann wird das ansatt ?? und wenn nix dann '' also lerer String
+    $vorname=trim($_POST['vorname']?? '');          
     $nachname=trim($_POST['nachname']?? '');       //trim f?r leerzeilen am anfang/ende l?schen
     $email=trim($_POST['email']?? '');
     $telefon=trim($_POST['telefon']?? '');
@@ -21,7 +21,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
     $nachricht=trim($_POST['nachricht']?? '');
 
 // pr?fen ob alle felder gefullt
-    if(empty($vorname) || empty($nachname) || empty($email) || empty($betreff) || empty($nachricht)) {              // emptay ist wenn lerr oder null oder "" dann $msg
+    if(empty($vorname) || empty($nachname) || empty($email) || empty($betreff) || empty($nachricht)) {              
         $msg= "Bitte alle Pflichtfelder ausf?llen!";   
         $type="error"; }
 
@@ -34,8 +34,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
    
    // wenn alles in formular stimmt dann 
     else{
-        $stmt = $conn->prepare("INSERT INTO kontakt_nachrichten (vorname,nachname,email,telefon,betreff,nachricht)VALUES (?,?,?,?,?,?)");     // wir bereiten 6-? die leer sind und die werte sp?ter von s bekommen,  die ? sichert den DB falls einer etwas gef?hrlivich im code schreibt (SQL-Injection)      
-        $stmt->bind_param("ssssss", $vorname,$nachname,$email,$telefon,$betreff,$nachricht);     // bind_param bedeutet setze die werte($vorname,,,) im ?
+        $stmt = $conn->prepare("INSERT INTO kontakt_nachrichten (vorname,nachname,email,telefon,betreff,nachricht)VALUES (?,?,?,?,?,?)");       
+        $stmt->bind_param("ssssss", $vorname,$nachname,$email,$telefon,$betreff,$nachricht);     
                                                                     
         if ($stmt->execute()) {
             $msg = "Nachricht wurde erfolgreich gesendet!"; 
