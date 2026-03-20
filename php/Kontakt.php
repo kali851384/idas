@@ -106,7 +106,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
 </footer>
 
 
- <script src="script.js"></script>   <!-- JS teil um profil menü zu passen -->
+
+<script src="JS/script.js" defer></script>  <!-- JS teil um profil menü zu passen -->
 
 
 <!-- nach den nachricht gesendet wird, wird die nach 5 sekunden verschwenden -->
