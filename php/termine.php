@@ -42,14 +42,6 @@ $result = $stmt->get_result();
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 
-  <style>
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      padding: 6px;
-      text-align: center;
-    }
-  </style>
 
 </head>
 <body>
