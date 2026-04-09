@@ -76,15 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {    //Server=alle infos �ber besuc
   <link rel="stylesheet" href="style.css">
 
 
-  <style>
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      padding: 6px;
-      text-align: center;
-    }
-  </style>
-
 </head>
 <body>
 
