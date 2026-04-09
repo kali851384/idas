@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {    //Server=alle infos �ber besuc
 <head>
   <meta charset="UTF-8">
   <title>Termin Details</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../css/style.css" />
 
 
 </head>
