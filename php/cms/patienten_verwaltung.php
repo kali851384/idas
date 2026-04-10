@@ -45,8 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 } else {
                     $s = mysqli_prepare($conn, "UPDATE patient SET vorname=?,nachname=?,geburtsdatum=?,email=?,telefon=?,geschlecht=?,wohnort=?,plz=?,adresse=? WHERE patient_id=?");
                     mysqli_stmt_bind_param($s, "ssssssssi", $vorname, $nachname, $geb, $email, $tel, $geschl, $wohnort, $plz, $adresse, $id);
-                    // Note: 9 s + 1 i = 10 params but we have 9 fields + id
-                    // Fix: bind properly
+
                     mysqli_stmt_close($s);
                     $s = mysqli_prepare($conn, "UPDATE patient SET vorname=?,nachname=?,geburtsdatum=?,email=?,telefon=?,geschlecht=?,wohnort=?,plz=?,adresse=? WHERE patient_id=?");
                     mysqli_stmt_bind_param($s, "sssssssssi", $vorname, $nachname, $geb, $email, $tel, $geschl, $wohnort, $plz, $adresse, $id);
@@ -92,75 +91,9 @@ mysqli_close($conn);
 <head>
 <meta charset="UTF-8">
 <title>Patienten verwalten</title>
-<style>
-:root{--blue:#2980b9;--green:#27ae60;--red:#c0392b;--purple:#8e44ad;--bg:#f0f2f5;--surface:#fff;--border:#e2e6ea;--text:#1a202c;--muted:#718096;--radius:10px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:28px 32px}
-.topbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-h1{font-size:20px;font-weight:700;flex:1}
-.btn{padding:7px 16px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:5px;text-decoration:none;transition:opacity .15s}
-.btn.blue{background:var(--blue);color:#fff}.btn.blue:hover{background:#1f618d}
-.btn.red{background:var(--red);color:#fff}.btn.red:hover{background:#96281b}
-.btn.green{background:var(--green);color:#fff}.btn.green:hover{background:#1e8449}
-.btn.purple{background:var(--purple);color:#fff}.btn.purple:hover{background:#6c3483}
-.btn.ghost{background:none;border:1px solid var(--border);color:var(--text)}.btn.ghost:hover{background:var(--bg)}
-.flash{padding:10px 16px;border-radius:8px;margin-bottom:16px;font-size:14px}
-.flash.success{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
-.flash.error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
-
-/* Toolbar */
-.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
-.search-form{display:flex;gap:6px;flex:1;max-width:400px}
-.search-form input{flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px}
-.search-form input:focus{outline:none;border-color:var(--blue)}
-.count-badge{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:13px;color:var(--muted)}
-
-/* Table */
-.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-table{width:100%;border-collapse:collapse}
-th{background:#2c3e50;color:#fff;padding:10px 14px;text-align:left;font-size:13px;font-weight:600}
-td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:#f8f9fa}
-.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;flex-shrink:0}
-.name-cell{display:flex;align-items:center;gap:10px}
-.badge-g{display:inline-block;font-size:11px;padding:2px 7px;border-radius:8px;font-weight:600}
-.badge-m{background:#e3f2fd;color:#1565c0}
-.badge-w{background:#fce4ec;color:#880e4f}
-.act-cell{display:flex;gap:5px;flex-wrap:wrap}
-
-/* Modal */
-.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;justify-content:center;align-items:center}
-.ov.on{display:flex}
-.modal{background:#fff;border-radius:12px;padding:28px;width:100%;max-width:560px;position:relative;box-shadow:0 8px 40px rgba(0,0,0,.2);max-height:90vh;overflow-y:auto}
-.modal h3{margin:0 0 20px;font-size:18px}
-.xbtn{position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#aaa}
-.xbtn:hover{color:#333}
-.section-title{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:16px 0 10px;padding-bottom:4px;border-bottom:1px solid var(--border)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.fg{display:flex;flex-direction:column;gap:5px}
-.fg label{font-size:13px;font-weight:600;color:var(--muted)}
-.fg input,.fg select{padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:14px;width:100%}
-.fg input:focus,.fg select:focus{outline:none;border-color:var(--blue)}
-.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
-
-.empty{text-align:center;padding:60px;color:var(--muted)}
-
-/* Detail modal */
-.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.detail-row{display:flex;flex-direction:column;gap:2px;padding:8px;background:var(--bg);border-radius:6px}
-.detail-label{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
-.detail-val{font-size:14px;font-weight:500}
-
-@media(max-width:700px){
-  body{padding:16px}
-  .grid2,.grid3{grid-template-columns:1fr}
-  .detail-grid{grid-template-columns:1fr}
-}
-</style>
+<link rel="stylesheet" href="cms_style.css">
 </head>
-<body>
+<body class="padded">
 
 <div class="topbar">
   <h1>👤 Patienten verwalten</h1>
