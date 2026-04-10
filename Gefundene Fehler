@@ -19,7 +19,7 @@ Wichtige details:
        einfach in jeder seite die er macht mit <?php include 'header.php'; ?> aufrufen.
 
 3) ala: um profil zu anpassen habe ich bisschen JavScript benutzt und es in datei script.js gespeicht und das bitte auch in jeder seite unter fuß bereich 
-        so aufrufen <script src="JS/script.js" defer></script>
+        so aufrufen <script src="../JS/script.js" defer></script>
 
 
 
