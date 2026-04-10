@@ -11,58 +11,65 @@ function clean_input($v) {
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
     $username = clean_input($_POST["username"] ?? "");
     $password = $_POST["password"] ?? "";
 
     if ($username !== "" && $password !== "") {
-
-        $sql = "SELECT admin_id, email, passwort FROM admin_account WHERE email = ? LIMIT 1";
-        $stmt = mysqli_prepare($conn, $sql);
-
+        $stmt = mysqli_prepare($conn, "SELECT admin_id, email, passwort FROM admin_account WHERE email = ? LIMIT 1");
         mysqli_stmt_bind_param($stmt, "s", $username);
         mysqli_stmt_execute($stmt);
-
         $result = mysqli_stmt_get_result($stmt);
 
         if ($row = mysqli_fetch_assoc($result)) {
             if (password_verify($password, $row["passwort"])) {
-
-                $_SESSION["admin_id"] = $row["admin_id"];
+                $_SESSION["admin_id"]   = $row["admin_id"];
                 $_SESSION["admin_user"] = $row["email"];
-
                 header("Location: admin_dashboard.php");
                 exit;
             }
         }
-
-        $error = "Login falsch.";
+        $error = "E-Mail oder Passwort falsch.";
     } else {
-        $error = "Bitte ausfüllen.";
+        $error = "Bitte alle Felder ausfüllen.";
     }
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Admin Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — IDAS</title>
+<link rel="stylesheet" href="cms_style.css">
 </head>
 <body>
 
-<h1>Admin Login</h1>
+<div class="login-wrap">
+  <div class="login-box">
 
-<p><?php echo htmlspecialchars($error); ?></p>
+    <div class="login-logo">ID<span>AS</span></div>
+    <div class="login-sub">Admin Panel</div>
 
-<form method="post">
-    Benutzername:<br>
-    <input type="text" name="username"><br><br>
+    <?php if ($error): ?>
+      <div class="login-error">⚠ <?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
 
-    Passwort:<br>
-    <input type="password" name="password"><br><br>
+    <form method="post">
+      <div class="login-fg">
+        <label>E-Mail</label>
+        <input type="email" name="username" required autofocus
+          placeholder="admin@beispiel.de"
+          value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
+      </div>
+      <div class="login-fg">
+        <label>Passwort</label>
+        <input type="password" name="password" required placeholder="••••••••">
+      </div>
+      <button type="submit" class="login-btn">Anmelden</button>
+    </form>
 
-    <button type="submit">Login</button>
-</form>
+  </div>
+</div>
 
 </body>
 </html>
