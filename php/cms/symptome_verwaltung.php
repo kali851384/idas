@@ -67,41 +67,9 @@ mysqli_close($conn);
 <head>
 <meta charset="UTF-8">
 <title>Symptome verwalten</title>
-<style>
-  *{box-sizing:border-box} body{font-family:Arial,sans-serif;max-width:1000px;margin:30px auto;padding:0 20px;color:#333}
-  h1{color:#2c3e50} h2{color:#34495e;border-bottom:2px solid #eee;padding-bottom:5px;margin-top:28px}
-  .msg{padding:10px 16px;border-radius:4px;margin-bottom:16px}
-  .success{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
-  .error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
-  table{width:100%;border-collapse:collapse;margin-top:8px}
-  th{background:#2c3e50;color:#fff;padding:9px 12px;text-align:left}
-  td{padding:8px 12px;border-bottom:1px solid #ddd;vertical-align:middle}
-  tr:hover td{background:#f5f5f5}
-  .tag{display:inline-block;background:#eaf4fb;color:#1a6a9a;border:1px solid #aad4ef;font-size:12px;padding:2px 7px;border-radius:10px;margin:2px}
-  .none{color:#aaa;font-style:italic;font-size:13px}
-  .btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:13px}
-  .blue{background:#2980b9;color:#fff} .blue:hover{background:#1f618d}
-  .green{background:#27ae60;color:#fff} .green:hover{background:#1e8449}
-  .red{background:#c0392b;color:#fff} .red:hover{background:#96281b}
-  .grey{background:#7f8c8d;color:#fff} .grey:hover{background:#626567}
-  input[type=text],input[type=search]{padding:7px 10px;border:1px solid #ccc;border-radius:4px;font-size:14px;width:100%}
-  .cb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:5px;max-height:200px;overflow-y:auto;padding:8px;background:#fff;border:1px solid #ccc;border-radius:4px}
-  .cb-grid label{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
-  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;justify-content:center;align-items:center}
-  .modal-overlay.active{display:flex}
-  .modal{background:#fff;border-radius:8px;padding:24px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 8px 32px rgba(0,0,0,.25)}
-  .modal h3{margin:0 0 16px;color:#2c3e50}
-  .close-btn{position:absolute;top:10px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#aaa}
-  .close-btn:hover{color:#333}
-  .row{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
-  .small-btns{display:flex;gap:6px;margin-bottom:5px}
-  .small-btns button{font-size:12px;padding:2px 9px;background:#ecf0f1;border:1px solid #bdc3c7;border-radius:3px;cursor:pointer}
-  .search-wrap{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-  .search-wrap input{max-width:300px}
-  #countLabel{font-size:13px;color:#666}
-</style>
+<link rel="stylesheet" href="cms_style.css">
 </head>
-<body>
+<body class="padded">
 
 <h1>🩺 Symptome verwalten</h1>
 <p>Eingeloggt als <strong><?= htmlspecialchars($_SESSION["admin_user"]) ?></strong> &nbsp;|&nbsp;
