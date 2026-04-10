@@ -170,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {    //Server=alle infos �ber besuc
 </footer>
 
 
-<script src="JS/script.js" defer></script>  <!-- JS teil um profil menü zu passen -->
+<script src="../JS/script.js" defer></script>  <!-- JS teil um profil menü zu passen -->
 
 
 </body>
