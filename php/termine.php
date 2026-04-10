@@ -105,7 +105,7 @@ $result = $stmt->get_result();
 </footer>
 
 
-<script src="JS/script.js" defer></script>  <!-- JS teil um profil menü zu passen -->
+<script src="../JS/script.js" defer></script>  <!-- JS teil um profil menü zu passen -->
 
 </body>
 </html>
