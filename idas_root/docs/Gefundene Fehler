@@ -1,0 +1,25 @@
+#########################################################################################################################################
+
+In dieser Datei sammeln wir, was wir an Fehlern gefunden haben. Bspw. falsche IDs. Bitte gebt den Dateinamen und den Fehler im Detail an.
+
+#########################################################################################################################################
+
+Datei: index.html
+Problem: Im letzten a-Tag wurde wahrscheinlich die ID falsch geschrieben - ID-Name ist "linktKontak"
+Status: Offen
+
+Wichtige details:
+1) ala: Bitte in alle seiten eindeutige fuß bereich benutzen:
+         <footer id="footer">
+           2026 IDAS Gesundheitsportal . Hannover<br>
+          Alle Rechte vorbehalten
+        </footer>
+
+2) ala: statt den kopfbereich in jeder seite imme zur kopieren habe ich es separat als header.php erstellt und jeder kann es
+       einfach in jeder seite die er macht mit <?php include 'header.php'; ?> aufrufen.
+
+3) ala: um profil zu anpassen habe ich bisschen JavScript benutzt und es in datei script.js gespeicht und das bitte auch in jeder seite unter fuß bereich 
+        so aufrufen <script src="../JS/script.js" defer></script>
+
+
+
