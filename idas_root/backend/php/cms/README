@@ -1,0 +1,13 @@
+CMS für diese Seiten:
+
+Diese Seiten sind Funktionen und funktionieren mit include():
+delete.php - Pascal
+create.php - Pascal
+edit.php - Justin
+
+kontakt.php - Justin
+Dashboard.php - Pascal
+konto_manager.php - Haithem
+symptome_verwaltung.php - Haithem
+aerzte_verwaltung.php (inkl. Fachbereiche) - Justin
+Funktionen.php (enthält die o. g. Seiten) - Haithem
