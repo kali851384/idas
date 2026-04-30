@@ -1,0 +1,13 @@
+Augenarzt
+Dermatologe
+Gynäkologe
+HNO-Arzt
+Hämatologe
+Humangenetiker
+Internist
+Kardiologie
+MKG-Chirug
+Neurochirug
+Neurologe
+Phoniatrie und Pädaudiologie
+Urologe
