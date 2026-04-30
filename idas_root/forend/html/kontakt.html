@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakt</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+
+
+</head>
+<body>
+
+<!--Titel und Logo-->
+		<div id="header">
+			<a href="index.html"><img id="siteLogo" src="images/siteLogo.png" width="72px" height="72px"></a>
+			<h1><b>IDAS</b></h1>
+			<h4 id="logoBanner">Intelligent Doctor Appointment System</h4>
+
+
+<!--Profil-->
+			<div id="navProfil">
+				<img id="profilImg" src="profilImg.png" onclick="dropDownButton()">
+				<div id="profilMenuSignedOut" class="dropdownDiv"> 	<!--Dropdown wenn nicht angemeldet-->
+					<button onclick="signInButton()" id="buttonLogIn" class="dropdownLoggedOut">Anmelden</button>
+				</div>
+				<div id="profilMenuSignedIn" class="dropdownDiv"> 	<!--dropdown wenn angemeldet-->
+					<a href="konto.html" id="dropdownKonto" class="dropdownSignedIn">Konto anzeigen</a>
+					<a href="kontoVerwaltung.html" id="dropdownVerwaltung" class="dropdownSignedIn">>Konto verwalten</a>
+					<button onclick="signOutButton()" id="buttonLogOut" class="dropdownSignedIn">Abmelden</button>
+				</div>
+			</div>
+
+
+<!--Navigationsbereich-->
+			<nav id="naviBereich">
+				<div id="navLinks">
+					<a href="index.html" id="linkIndex" class="navLink">Start</a>
+					<a href="symptome.html" id="linkSymptome" class="navLink">Arzt finden</a>
+					<a href="patientenakte.html" id="linkAkte" class="navLink">Patienakte</a>
+					<a href="termine.html" id="linkTermine" class="navLink">Termine</a>
+					<a href="konto.html" id="linkKonto" class="navLink">Konto</a>
+					<a href="kontakt.html" id="linkKontak" class="navLink">Kontakt</a>
+				</div>
+			</nav>
+		</div>
+
+
+
+<main>
+
+<h1>Kontakt </h1>
+
+<form id="kontaktForm">
+
+  <label>Vorname</label> 
+  <input type="text" name="vorname" required> <br />
+
+  <label>Nachname</label> 
+  <input type="text" name="nachname" required>  <br />
+
+  <label>E-Mail</label> 
+  <input type="email" name="email" required>    <br />
+                                               
+  <label>Telefon </label>  
+  <input type="text" name="telefon">   <br />
+
+  <label>Betreff</label>    
+  <input type="text" name="betreff" required>   <br />
+
+  <label>Nachricht / Problem</label> <br />   
+  <textarea name="nachricht" rows="5" required></textarea>   <br /> <br />
+
+  <button type="submit">Absenden</button>   <br /> 
+
+</form>
+
+
+
+
+
+</main>
+
+
+</body>
+</html>

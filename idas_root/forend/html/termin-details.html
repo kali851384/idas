@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Termin Details</title>
+  <link rel="stylesheet" href="style.css">
+
+<!-- kleine css code für die tabelle-->
+  <style>       
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 6px;
+      text-align: center;
+    }
+  </style>
+
+</head>
+<body>
+
+<div id="header">
+    <a href="index.php">
+        <img id="siteLogo" src="images/siteLogo.png" width="72">
+    </a>
+    <h1><b>IDAS</b></h1>
+    <h4 id="logoBanner">Intelligent Doctor Appointment System</h4>
+</div>
+
+
+
+<main id="TerminDetails">
+
+ <h1 id="TerminDetailsTitel">Termin Details</h1>
+ 
+ <table id="TerminDetailsTabelle">
+ 
+ <tbody id="TerminDetailsBody">
+ 
+      <tr class="TerminDetailsZeile">       
+      <th class="TerminDetailsLabel">Patient</th>
+      <td class="TerminDetailsWert">Maria Musterfrau</td>
+      </tr>
+  
+  
+      <tr class="TerminDetailsZeile">
+      <th class="TerminDetailsLabel">Datum</th>
+       <td class="TerminDetailsWert">20.11.2025</td>
+      </tr>
+
+      <tr class="TerminDetailsZeile">
+      <th class="TerminDetailsLabel">Uhrzeit</th>
+      <td class="TerminDetailsWert">09:30 Uhr</td>
+      </tr>
+
+      <tr class="TerminDetailsZeile">
+      <th class="TerminDetailsLabel">Status</th>
+      <td class="TerminDetailsWert abgeschlossen">Abgeschlossen</td>
+      </tr>
+
+      <tr class="TerminDetailsZeile">
+      <th class="TerminDetailsLabel">Arzt</th>
+       <td class="TerminDetailsWert">Dr. Holly Daze</td>
+      </tr>
+
+      <tr class="TerminDetailsZeile">
+      <th class="TerminDetailsLabel">Fachbereich</th>
+      <td class="TerminDetailsWert">Kardiologie</td>
+      </tr>
+
+      <tr class="TerminDetailsZeile">
+      <th class="TerminDetailsLabel">Arzt E-Mail</th>
+      <td class="TerminDetailsWert">holly.daze@clinic.de</td>
+      </tr>
+
+      <tr class="TerminDetailsZeile">
+      <th class="TerminDetailsLabel">Telefon</th>
+      <td class="TerminDetailsWert">+49 511 2345678</td>
+      </tr>
+
+      <tr class="TerminDetailsZeile">
+      <th class="TerminDetailsLabel">Grund / Beschreibung</th>
+      <td class="TerminDetailsWert">Kontrolle</td>
+      </tr>
+
+ </tbody>
+ </table>
+ 
+ <div id="TerminDetailsAktion">
+  <a href="termine.html" class="TerminDetailsZuruck">Zur&uuml;ck zur Ubersicht</a>
+ 
+  <button class="TerminDetailsLuschen">Termin absagen</button>
+ </div>
+
+</main>
+
+
+</body>
+
+</html>
+

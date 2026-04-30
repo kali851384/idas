@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terminübersicht</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+
+<!-- kleine css code für die tabelle-->
+    <style>
+    table, th, td {
+      border: 1px solid black;                    /* schwarzer Rand um Tabelle und Zellen */
+      border-collapse: collapse;                  /* Keine Doppellinien  */
+      padding: 5px;                               /* Abstand zwischen Text und Rand */
+    }
+  </style>
+
+
+
+</head>
+<body>
+
+<!--Titel und Logo-->
+		<div id="header">
+			<a href="index.html"><img id="siteLogo" src="images/siteLogo.png" width="72px" height="72px"></a>
+			<h1><b>IDAS</b></h1>
+			<h4 id="logoBanner">Intelligent Doctor Appointment System</h4>
+
+
+<!--Profil-->
+			<div id="navProfil">
+				<img id="profilImg" src="profilImg.png" onclick="dropDownButton()">
+				<div id="profilMenuSignedOut" class="dropdownDiv"> 	<!--Dropdown wenn nicht angemeldet-->
+					<button onclick="signInButton()" id="buttonLogIn" class="dropdownLoggedOut">Anmelden</button>
+				</div>
+				<div id="profilMenuSignedIn" class="dropdownDiv"> 	<!--dropdown wenn angemeldet-->
+					<a href="konto.html" id="dropdownKonto" class="dropdownSignedIn">Konto anzeigen</a>
+					<a href="kontoVerwaltung.html" id="dropdownVerwaltung" class="dropdownSignedIn">>Konto verwalten</a>
+					<button onclick="signOutButton()" id="buttonLogOut" class="dropdownSignedIn">Abmelden</button>
+				</div>
+			</div>
+
+
+<!--Navigationsbereich-->
+			<nav id="naviBereich">
+				<div id="navLinks">
+					<a href="index.html" id="linkIndex" class="navLink">Start</a>
+					<a href="symptome.html" id="linkSymptome" class="navLink">Arzt finden</a>
+					<a href="patientenakte.html" id="linkAkte" class="navLink">Patienakte</a>
+					<a href="termine.html" id="linkTermine" class="navLink">Termine</a>
+					<a href="konto.html" id="linkKonto" class="navLink">Konto</a>
+					<a href="kontakt.html" id="linkKontak" class="navLink">Kontakt</a>
+				</div>
+			</nav>
+		</div>
+
+
+
+
+<main id="TerminMain">
+
+<h1 id="TerminTitel">Terminübersicht</h1>
+
+<table id="TerminTabelle">
+
+<thead id="TerminHead">
+  <tr>
+    <th>Datum</th>
+    <th>Uhrzeit</th>
+    <th>Arzt</th>
+    <th>Fachbereich</th>
+    <th>Status</th>
+    <th>Aktion</th>
+  </tr>
+  </thead>
+
+<tbody id="TerminBody">
+
+<!--Termin 1 -->
+  <tr class="Terminzeilen">
+    <td class="TerminDatum">20.11.2025</td>
+    <td class="TerminZeit">09:30</td>
+    <td class="TerminArzt">Dr. Holly Daze</td>
+    <td class="TerminFachbereich">Kardiologie</td>
+    <td class="TerminStatus abgeschlossen">Abgeschlossen</td>
+    <td class="TerminAktion">  <a href="#"  class="TerminDetails">Details</a>  </td>
+  </tr>
+
+<!--Termin 2 -->
+    <tr class="Terminzeilen">
+      <td class="TerminDatum">10.12.2025</td>
+      <td class="TerminZeit">10:00</td>
+      <td class="TerminArzt">Dr. Justin Times</td>
+      <td class="TerminFachbereich">Allgemeinmedizin</td>
+      <td class="TerminStatus abgeschlossen">Abgeschlossen</td>
+      <td class="TerminAktion">  <a href="#" class="TerminDetails">Details</a>
+      </td>
+    </tr>
+
+<!--Termin 3 -->
+    <tr class="Terminzeilen">
+      <td class="TerminDatum">15.06.2026</td>
+      <td class="TerminZeit">14:00</td>
+      <td class="TerminArzt">Dr. Emma Grate</td>
+      <td class="TerminFachbereich">Orthopädie</td>
+      <td class="TerminStatus bevorstehend">Bevorstehend</td>
+      <td class="TerminAktion"> <a href="#" class="TerminDetails">Details</a>
+      </td>
+    </tr>
+
+</tbody>
+
+
+</table>
+
+
+</main>
+
+
+</body>
+</html>
