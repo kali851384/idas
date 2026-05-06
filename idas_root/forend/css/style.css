@@ -745,6 +745,101 @@ a:hover {
   font-size: 0.9rem;
 }
 
+/*Symptomaufnahme und Arztauswahl*/
+#symptomWrapper, #docDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#docDiv {
+    margin-bottom: 40vh;
+}
+
+#symptomForm {
+    width: 30vw;
+    padding: 5%;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.doctorForm {
+    width: 13vw;
+    padding: 5%;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.symptomFormLabel {
+    color: #2F9E44;
+    font-weight: 600;
+    margin-bottom: 1%;
+}
+
+.symptomInput, #symptomInputDays_sa {
+    margin-bottom: 2%;
+    transition: all 0.2s ease;
+}
+
+#symptomAddressInput, #symptomCityInput, #symptomPlzInput {
+    padding: 12px 15px;
+    font-size: 16;
+    width: 100%;
+    height: 3vh;
+    border: 2px solid #E9ECEF;
+    border-radius: 10px;
+}
+
+.symptomInput input:focus, #symptomAddressInput:focus, #symptomCityInput:focus, #symptomPlzInput:focus {
+    outline: none;
+    border: 2px solid #2F9E44;
+}
+
+#symptomSubmit {
+    background-color: #2f9e44;
+    color: white;
+    border: none;
+    padding: 1%;
+    margin-top: 5%;
+    height: 3vh;
+    width: 5vw;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+
+.docInputSubmit {
+    background-color: #2f9e44;
+    color: white;
+    border: none;
+    padding: 1%;
+    margin-top: 5%;
+    height: 3vh;
+    width: 7vw;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.symptomFormSublabel {
+    color: #8cbd95;
+    font-weight: 400;
+}
+
+.symptomTitle {
+    font-size: 36;
+    margin-bottom: 1.5%;
+}
+
+.symptomDesc {
+    margin-bottom: 3%;
+    font-size: 18;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   #header {
@@ -858,4 +953,7 @@ a:hover {
   th, td {
     padding: 8px;
   }
+
+
+  
 }
