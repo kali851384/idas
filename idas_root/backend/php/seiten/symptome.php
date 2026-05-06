@@ -11,7 +11,7 @@ if (!isset($_SESSION['patient_id'])) {
 <!DOCTYPE html> 
 <html>
 	
-	<head> <!--DO NOT TOUCH-->
+	<head>
 		<link rel="stylesheet" href="../../../forend/css/style.css" /> 
 		<link href="../../../forend/css/choices.css" " rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,43 +22,12 @@ if (!isset($_SESSION['patient_id'])) {
 	
 	
 	<body>
-<!--Titel und Logo--> 
-		<div id="header">
-			<a href="index.html"><img id="siteLogo" src="images/siteLogo.png" width="72px" height="72px"></a> 
-			<h1><b>IDAS</b></h1> 
-			<h4 id="logoBanner">Intelligent Doctor Appointment System</h4>
-			
-			
-<!--Profil-->
-			<div id="navProfil"> 
-				<img id="profilImg" src="profilImg.png" onclick="dropDownButton()"> 
-				<div id="profilMenuSignedOut" class="dropdownDiv"> 	<!--Dropdown wenn nicht angemeldet-->
-					<button onclick="signInButton()" id="buttonLogIn" class="dropdownLoggedOut">Anmelden</button>
-				</div>
-				<div id="profilMenuSignedIn" class="dropdownDiv"> 	<!--dropdown wenn angemeldet-->
-					<a href="konto.html" id="dropdownKonto" class="dropdownSignedIn">Konto anzeigen</a>
-					<a href="kontoVerwaltung.html" id="dropdownVerwaltung" class="dropdownSignedIn">>Konto verwalten</a>
-					<button onclick="signOutButton()" id="buttonLogOut" class="dropdownSignedIn">Abmelden</button>
-				</div>
-			</div>
-			
-			
-<!--Navigationsbereich--> 
-			<nav id="naviBereich"> 
-				<div id="navLinks">
-					<a href="index.html" id="linkIndex" class="navLink">Start</a> 
-					<a href="symptome.html" id="linkSymptome" class="navLink">Arzt finden</a> 
-					<a href="patientenakte.html" id="linkAkte" class="navLink">Patienakte</a> 
-					<a href="termine.html" id="linkTermine" class="navLink">Termine</a> 
-					<a href="konto.html" id="linkKonto" class="navLink">Konto</a> 
-				</div>
-			</nav>
-		</div>
+		<?php include 'header.php'; ?> 
 		
-
-<!--Seiteninhalt-->		
 		<main>
             <div id="symptomWrapper">
+				<h1 class="symptomTitle">Symptome Eingeben</h1>
+				<p class="symptomDesc">Geben sie Ihre Symptome ein. Danach können sie einen Arzt auswählen, mit dem Sie einen Termin vereinbaren wollen.</p>
  				<form method="post" action="findDoctor.php" id="symptomForm" class="">	<!--Übergibt patient id mit absenden des Formulars-->
 					<input type="hidden" name="patient_id" value="<?php echo $_SESSION['patient_id']; ?>" id="symptomIdInput">
 					<label for="symptomSelectInput" id="symtomSelectLabel" class="symptomFormLabel">Symptome</label> <br />
@@ -72,18 +41,18 @@ if (!isset($_SESSION['patient_id'])) {
 						}
 						?>
 					</select> <br />
-					<label id="symptomRadioLabel">Tage</label> <br />
-					<label for="symptomInputDays_mo">Montag</label>
+					<label id="symptomRadioLabel" class="symptomFormLabel">Tage</label> <br />
+					<label for="symptomInputDays_mo" class="symptomFormSublabel">Montag</label>
 					<input type="checkbox" name="symptomDays" value="1" id="symptomInputDays_mo"/> <br />
-					<label for="symptomInputDays_di">Dienstag</label>
+					<label for="symptomInputDays_di" class="symptomFormSublabel">Dienstag</label>
 					<input type="checkbox" name="symptomDays" value="2" id="symptomInputDays_di"/> <br />
-					<label for="symptomInputDays_mi">Mittwoch</label>
+					<label for="symptomInputDays_mi" class="symptomFormSublabel">Mittwoch</label>
 					<input type="checkbox" name="symptomDays" value="3" id="symptomInputDays_mi"/> <br />
-					<label for="symptomInputDays_do">Donnerstag</label>
+					<label for="symptomInputDays_do" class="symptomFormSublabel">Donnerstag</label>
 					<input type="checkbox" name="symptomDays" value="4" id="symptomInputDays_do"/> <br />
-					<label for="symptomInputDays_fr">Freitag</label>
+					<label for="symptomInputDays_fr" class="symptomFormSublabel">Freitag</label>
 					<input type="checkbox" name="symptomDays" value="5" id="symptomInputDays_fr"/> <br />
-					<label for="symptomInputDays_sa">Samstag</label>
+					<label for="symptomInputDays_sa" class="symptomFormSublabel">Samstag</label>
 					<input type="checkbox" name="symptomDays" value="6" id="symptomInputDays_sa"/> <br />
 
 					<label for="symptomAddressInput" id="symptomAddressLabel" class="symptomFormLabel">Adresse</label> <br />
@@ -94,12 +63,27 @@ if (!isset($_SESSION['patient_id'])) {
 
 					<label for="symptomPlzInput" id="symptomPlzLabel" class="symptomFormLabel">PLZ</label> <br />
 					<input type="text" name="symptomPlz" id="symptomPlzInput" class="symptomInput"/> <br />
-					<input type="submit"/>
+					<label class="symptomFormLabel">Entfernung</label > <br />
+					<select name="symptomDist" class="symptomInput">
+						<option value="5000">5km</option>
+						<option value="10000">10km</option>
+						<option value="25000">25km</option>
+						<option value="50000">50km</option>
+						<option value="100000">100km</option>
+					</select> <br />
+					<input type="submit" value="Bestätigen" id="symptomSubmit"/>
 				</form>
 			</div>
 		</main>
 		<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 		<script src="../../JS/select.js"" defer></script>
 		<script src="../../JS/script.js"" defer></script>
+		<footer id="footer">
+			2026 IDAS Gesundheitsportal . Hannover<br>
+			Alle Rechte vorbehalten
+		</footer>
+
+
+		<script src="../../JS/script.js" defer></script> <!-- JS teil um profil menü zu passen -->
 	</body>
 </html>
