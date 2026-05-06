@@ -23,6 +23,16 @@ ORDER BY anzahl DESC LIMIT 1";
     return $result;
 }
 
+function readFbById($conn, $fbId)
+{
+    $sql = "SELECT name FROM fachbereich WHERE fachbereich_id = {$fbId}";
+    $result = $conn->query($sql);
+    if ($result && $row = $result->fetch_assoc()) {
+        return $row['name'];
+    }
+    return null;
+}
+
 function readDoctors ($conn, $fbId) {
     $sql = "select arzt_id, name, fachbereich_id, addresse from arzt where fachbereich_id = {$fbId}";
     $result = $conn->query($sql);
